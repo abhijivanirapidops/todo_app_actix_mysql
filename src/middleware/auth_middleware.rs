@@ -124,9 +124,9 @@ pub struct AuthenticatedUser {
     pub role: String,
 }
 
-pub fn get_authenticated_user(req: &ServiceRequest) -> Option<AuthenticatedUser> {
-    req.extensions().get::<AuthenticatedUser>().cloned()
-}
+// pub fn get_authenticated_user(req: &ServiceRequest) -> Option<AuthenticatedUser> {
+//     req.extensions().get::<AuthenticatedUser>().cloned()
+// }
 
 // Helper function for handlers to get current user
 use actix_web::HttpRequest;

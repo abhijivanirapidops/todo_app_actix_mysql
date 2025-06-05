@@ -6,8 +6,9 @@ mod routes;
 mod schema;
 mod utils;
 
+use crate::routes::config_routes;
 use actix_web::{App, HttpServer, middleware::Logger, web};
-use config::{config_routes, database::create_connection_pool};
+use config::database::create_connection_pool;
 use dotenv::dotenv;
 use env_logger;
 use utils::get_env_vars::get_env_var;

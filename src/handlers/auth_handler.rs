@@ -2,41 +2,16 @@ use actix_web::{HttpResponse, Responder, web};
 use bcrypt::{DEFAULT_COST, hash, verify};
 use chrono::{Duration, Utc};
 use jsonwebtoken::{EncodingKey, Header, encode};
-use serde::{Deserialize, Serialize};
 use sqlx::MySqlPool;
 
 use crate::{
     middleware::auth_middleware::Claims,
-    models::user_model::User,
+    models::{
+        auth_model::{AuthResponse, LoginRequest, RegisterRequest, UserInfo},
+        user_model::User,
+    },
     schema::user_schema::{check_email_exists, create_user, get_user_by_email},
 };
-
-#[derive(Deserialize)]
-pub struct LoginRequest {
-    pub email: String,
-    pub password: String,
-}
-
-#[derive(Deserialize)]
-pub struct RegisterRequest {
-    pub name: String,
-    pub email: String,
-    pub password: String,
-}
-
-#[derive(Serialize)]
-pub struct AuthResponse {
-    pub token: String,
-    pub user: UserInfo,
-}
-
-#[derive(Serialize)]
-pub struct UserInfo {
-    pub id: String,
-    pub name: String,
-    pub email: String,
-    pub role: String,
-}
 
 pub async fn register_handler(
     pool: web::Data<MySqlPool>,
